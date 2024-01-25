@@ -1,0 +1,190 @@
+<link rel="stylesheet" href="/vendor/libs/quill/katex.css">
+<link rel="stylesheet" href="/vendor/libs/quill/editor.css">
+<link rel="stylesheet" href="/vendor/libs/select2/select2.css">
+<link rel="stylesheet" href="/vendor/libs/dropzone/dropzone.css">
+<link rel="stylesheet" href="/vendor/libs/flatpickr/flatpickr.css">
+<link rel="stylesheet" href="/vendor/libs/tagify/tagify.css" />
+
+<%- include('admin_header') %>
+  <!-- Content wrapper -->
+  <div class="content-wrapper">
+
+    <!-- Content -->
+
+    <div class="container-xxl flex-grow-1 container-p-y">
+      <h4 class="py-3 mb-4">
+        <span class="text-muted fw-light">eCommerce /</span><span class="text-muted fw-light"> Brand /</span><span> Add
+          Brand</span>
+      </h4>
+
+      <div class="app-ecommerce">
+        <div class="row">
+
+          <!-- First column-->
+          <div class="col-12 col-lg-12">
+            <!-- Product Information -->
+            <div class="card mb-4">
+              <div class="card-header">
+                <h5 class="card-tile mb-0">Brand information</h5>
+              </div>
+              <div class="card-body">
+                <form action="/admin/product/insert_product" method="post" enctype="multipart/form-data">
+
+                  <div class="row mb-3">
+                    <label class="col-sm-2 col-form-label form-label" for="Category">Category:</label>
+                    <div class="col-sm-10">
+                      <select id="Category" class="form-select form-select" onchange="return getSubcatData()"
+                        name="category">
+                        <option selected="" disabled="">-- Select Category --</option>
+                        <% for(let category of categoryData){ %>
+                          <option value="<%= category.id %>">
+                            <%= category.category_name %>
+                          </option>
+                          <% } %>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="row mb-3">
+                    <label class="col-sm-2 col-form-label form-label" for="Subcategory">Subcategory:</label>
+                    <div class="col-sm-10">
+                      <select id="Subcategory" class="form-select form-select" onchange="return getExtraCatData()"
+                        name="subcategory">
+                        <option selected="" disabled="">-- Select Subcategory --</option>
+                        <% for(let subcategory of subcategoryData){ %>
+                          <option value="<%= subcategory.id %>">
+                            <%= subcategory.subcategory_name %>
+                          </option>
+                          <% } %>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="row mb-3">
+                    <label class="col-sm-2 col-form-label form-label" for="ExtraCategory">Extra Category:</label>
+                    <div class="col-sm-10">
+                      <select id="ExtraCategory" class="form-select form-select" onchange="getBrandTypeData()"
+                        name="extracategory">
+                        <option selected="" disabled="">-- Select Extra Category --</option>
+                        <% for(let extraCategory of extraCategoryData){ %>
+                          <option value="<%= extraCategory.id %>">
+                            <%= extraCategory.extraCategory_name %>
+                          </option>
+                          <% } %>
+                      </select>
+                    </div>
+                  </div>
+                  <div id="BrandType">
+                    <div class="row mb-3">
+                      <label class="col-sm-2 col-form-label form-label" for="ExtraCategory">Brand:</label>
+                      <div class="col-sm-10">
+                        <select id="Brand" class="form-select form-select" name="brandname">
+                          <option selected="" disabled="">-- Select Extra Category --</option>
+                          <% for(let brand of brandData){ %>
+                            <option value="<%= brand.id %>">
+                              <%= brand.brand_name %>
+                            </option>
+                            <% } %>
+                        </select>
+                      </div>
+                    </div>
+                    <div class="row mb-3">
+                      <label class="col-sm-2 col-form-label form-label">Select Type:</label>
+                      <div class="col-sm-10">
+                        <select class="form-select form-select" name="typeName" id="product-type">
+                          <option selected="" disabled="">-- Select Extra Category --</option>
+                          <% typeData.map((v,i)=>{ %>
+                            <option value="<%= v.id %>">
+                              <%= v.type %>
+                            </option>
+                            <% }) %>
+                        </select>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row mb-3">
+                    <label class="col-sm-2 col-form-label form-label">Add Product</label>
+                    <div class="col-sm-10">
+                      <input type="text" placeholder="Product Name" class="form-control" name="product_title">
+                    </div>
+                  </div>
+                  <div class="row mb-3">
+                    <label class="form-label col-lg-2">Product Price</label>
+                    <div class="col-sm-10">
+                      <input type="text" placeholder="Product Price" class="form-control" name="product_price">
+                    </div>
+                  </div>
+                  <div class="row mb-3">
+                    <label class="form-label col-lg-2">Old Price</label>
+                    <div class="col-sm-10">
+                      <input type="text" placeholder="Old Price" class="form-control" name="product_old_price">
+                    </div>
+                  </div>
+                  <div class="row mb-3">
+                    <label class="form-label col-lg-2">Product Description</label>
+                    <div class="col-sm-10">
+                      <textarea name="product_Discription" class="form-control" cols="30" rows="10"></textarea>
+                    </div>
+                  </div>
+
+                  <div class="row mb-3">
+                    <label class="form-label col-lg-2">Product Size</label>
+                    <div class="col-sm-12 col-md-10">
+                      <div class="form-check-inline form-check">
+                        <label>
+                          <input class="form-check-input" name="Product_size" type="radio" value="36">36
+                        </label>
+                        <label class="pl-3">
+                          <input class="form-check-input" name="Product_size" type="radio" value="38">38
+                        </label>
+                        <label class="pl-3">
+                          <input class="form-check-input" name="Product_size" type="radio" value="40">40
+                        </label>
+                      </div>
+                    </div>
+                  </div>
+
+
+                  <div class="row mb-3">
+                    <label class="form-label col-lg-2">Product Colour</label>
+                    <div class="col-sm-12 col-md-10">
+                      <div class="form-check-inline form-check">
+                        <label>
+                          <input class="form-check-input" name="Product_color" type="radio" value="Gray">Gray
+                        </label>
+                        <label class="pl-3">
+                          <input class="form-check-input" name="Product_color" type="radio" value="Black">Black
+                        </label>
+                        <label class="pl-3">
+                          <input class="form-check-input" name="Product_color" type="radio" value="White">White
+                        </label>
+                      </div>
+                    </div>
+
+                  </div>
+                  <div class="d-flex gx-4 align-items-center mb-3">
+                    <label class="form-label col-lg-2 p-0">Product Image</label>
+                    <input type="file" name="ProductImage" class="form-control" id="formFile">
+                  </div>
+                  <div class="d-flex gx-4 align-items-center mb-3">
+                    <label class="form-label col-lg-2 p-0">Product Images</label>
+                    <input name="multipleproductimage" type="file" class="form-control" id="formFileMultiple" multiple>
+                  </div>
+              </div>
+
+            </div>
+            <br>
+            <button class="btn btn-primary" type="submit">Add Product</button>
+            </form>
+          </div>
+        </div>
+        <!-- /Product Information -->
+      </div>
+      <!-- /Second column -->
+
+
+    </div>
+  </div>
+  </div>
+  <!-- / Content -->
+  <script>
+  </script>
+  <%- include('admin_footer') %>

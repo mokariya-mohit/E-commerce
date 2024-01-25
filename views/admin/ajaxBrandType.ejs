@@ -1,0 +1,26 @@
+<div class="row mb-3">
+    <label class="col-sm-2 col-form-label form-label" for="ExtraCategory">Brand:</label>
+    <div class="col-sm-10">
+      <select id="Brand" class="form-select form-select" name="brandname">
+        <option selected="" disabled="">-- Select Extra Category --</option>
+        <% for(let brand of brandData){ %>
+          <option value="<%= brand.id %>">
+            <%= brand.brand_name %>
+          </option>
+          <% } %>
+      </select>
+    </div>
+  </div>
+  <div class="row mb-3">
+    <label class="col-sm-2 col-form-label form-label">Select Type:</label>
+    <div class="col-sm-10">
+      <select class="form-select form-select" name="typeName" id="product-type">
+        <option selected="" disabled="">-- Select Extra Category --</option>
+        <% typeData.map((v,i)=>{ %>
+          <option value="<%= v.id %>">
+            <%= v.type %>
+          </option>
+          <% }) %>
+      </select>
+    </div>
+  </div>

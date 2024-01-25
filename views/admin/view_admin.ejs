@@ -1,0 +1,117 @@
+<%- include('admin_header') %>
+
+  <!-- Content wrapper -->
+  <div class="content-wrapper">
+
+    <!-- Content -->
+
+    <div class="container-xxl flex-grow-1 container-p-y">
+
+
+      <h4 class="py-3 mb-4">
+        <span class="text-muted fw-light">E-Commerce /</span><span class="text-muted fw-light"> Admin /</span> View
+        Admin
+      </h4>
+
+      <!-- Product List Table -->
+      <div class="card">
+        <div class="card-header">
+          <h5 class="card-title">Filter</h5>
+          <form>
+            <div class="input-group">
+              <input type="text" class="form-control" placeholder="Search By Admin Name" name="search"
+                value="<%= search %>" />
+              <button class="btn btn-outline-primary waves-effect" type="submit" id="button-addon2">Search</button>
+            </div>
+          </form>
+        </div>
+        <div class="card-datatable table-responsive">
+          <table class="datatables-products table">
+            <thead class="table-light">
+              <tr>
+                <th>
+                  <label class="form-check-label">
+                    <input style="margin: 0 0 -20px 0px; font-size: 30px !important;" class="form-check-input"
+                      type="checkbox" id="selectAll" />
+                  </label>
+                </th>
+                <th>name</th>
+                <th>email</th>
+                <th>description</th>
+                <th>gender</th>
+                <th>hobby</th>
+                <th>city</th>
+                <th>image</th>
+                <th>status</th>
+                <th>actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% let i=1; for(let aData of adminData){ %>
+                <tr>
+                  <td style="padding: 20px;">
+                    <label class="form-check-label me-2">
+                      <input style="margin: 0 0 -20px 0px;" class="form-check-input checkboxSub" type="checkbox"
+                        name="mulDelete[]" value="<%= aData.id %>" />
+                    </label>
+                  </td>
+                  <td>
+                    <%= i %>
+                  </td>
+                  <td>
+                    <%= aData.name %>
+                  </td>
+                  <td>
+                    <%= aData.email %>
+                  </td>
+                  <td>
+                    <%= aData.description %>
+                  </td>
+                  <td>
+                    <%= aData.gender %>
+                  </td>
+                  <td>
+                    <%= aData.hobby %>
+                  </td>
+                  <td>
+                    <%= aData.city %>
+                  </td>
+                  <td><img src="<%= aData.adminImage %>" alt="Admin Image" height="100" /></td>
+                  <td>
+                    <% if(aData.isActive) { %>
+                      <a href="/admin/deactiveAdmin/?id=<%= aData.id %>">
+                        <span class="btn btn-sm btn-primary" text-capitalized="">Active</span>
+                      </a>
+                      <% } else { %>
+                        <a href="/admin/activeAdmin/?id=<%= aData.id %>">
+                          <span class="btn btn-sm btn-danger" text-capitalized="">Deactive</span>
+                        </a>
+                        <% } %>
+                  </td>
+                  <td>
+                    <div class="d-flex align-items-center">
+                      <a href="/admin/updateAdmin/?id=<%= aData.id %>" class="d-inline-block" data-bs-toggle="tooltip"
+                        data-bs-title="Edit Admin">
+                        <span class="border border-2 rounded-circle p-2">
+                          <i class="ti-pencil"></i>
+                        </span>
+                      </a>
+                      <a href="/admin/deleteAdmin/?id=<%= aData.id %>" class="d-inline-block" data-bs-toggle="tooltip"
+                        data-bs-title="Delete Admin">
+                        <span class="border border-2 rounded-circle p-2">
+                          <i class="ti-trash"></i>
+                        </span>
+                      </a>
+                  </td>
+                </tr>
+                <% i++; } %>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+
+    </div>
+    <!-- / Content -->
+
+    <%- include('admin_footer') %>
